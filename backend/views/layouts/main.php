@@ -36,13 +36,18 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Administrar Sitio',
+         'items'=>[
+                            ['label' => 'Administrar Usuarios', 'url' => ['/user/admin'] ,'visible' => Yii::$app->user->can('admin')],
+                    ],
+            ],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];
     } else {
         $menuItems[] = ['label' => 'Frontend', 'url' => ['/../../frontend/web']];
         $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
+            . Html::beginForm(['/user/security/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
