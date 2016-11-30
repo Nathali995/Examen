@@ -65,6 +65,16 @@ class SiteController extends Controller
         ];
     }
 
+    
+    
+    public function actionProductovista()
+    {
+        return $this->render('productovista');
+    }
+    public function actionProductoform()
+    {
+        return $this->render('productoform');
+    }
     /**
      * Displays homepage.
      *

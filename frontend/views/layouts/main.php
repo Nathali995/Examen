@@ -36,8 +36,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Servicios Web', 'url' => ['/site/productoform'],'visible' => !Yii::$app->user->isGuest,],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/registration/register']];
@@ -45,7 +44,7 @@ AppAsset::register($this);
     } else {
         $menuItems[] = ['label' => 'Backend', 'url' => ['/../../backend/web']];
         $menuItems[] = '<li>'
-            . Html::beginForm(['/user/security/logout'], 'post')
+            . Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
