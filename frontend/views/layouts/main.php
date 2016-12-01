@@ -38,6 +38,8 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'Servicios Web', 'url' => ['../../../cliente_web'],'visible' => !Yii::$app->user->isGuest,],
    ['label' => 'Consumo Productos', 'url' => ['/registro/create'],'visible' => !Yii::$app->user->isGuest,]
+   
+            
     ];
             
     if (Yii::$app->user->isGuest) {

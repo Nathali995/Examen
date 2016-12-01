@@ -17,7 +17,7 @@ $size = count($productos);
     <?php $form = ActiveForm::begin(); ?>
             
  <?= $form->Field($model, 'uid')->textInput(['value'=>Yii::$app->user->identity->id,'type'=>"hidden",])->label(false); ?>
-<?= $form->field($model, 'idP')->radioList(['1'=>'Café  $','2'=>'Té  $','3'=>'Cola   $2.5'],array('separator'=>' ',
+<?= $form->field($model, 'idP')->radioList(['1'=>'Café  $0.50','2'=>'Té  $1.50','3'=>'Cola   $2.5'],array('separator'=>' ',
 'labelOptions'=>array('style'=>'display:inline'),))->label('Bebidas'); ?>
     <div class="form-group">
         <?= Html::submitButton('Create', ['btn btn-success']) ?>

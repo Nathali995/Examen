@@ -3,7 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
-use backend\models\Registro;
+use app\models\Registro;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -61,16 +61,20 @@ class RegistroController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+    public function actionSaldo($id)
+    {
+        return $this->render('saldo', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+    
     public function actionCreate()
     {
         $model = new Registro();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-           $precio = Yii::$app->db->createCommand('select precio from producto where idP="'.$model->idP.'"')->queryAll();
-            Yii::$app->db->createCommand()->update('Persona',array('saldo'=>('saldo+'.$precio[0]["precio"]),), 'id_user=:id_user', array(':id_user'=>$model->uid,));
-            $saldo = Yii::$app->db->createCommand('select saldo from Persona where id_user="'.$model->uid.'"')->queryAll();
-            echo 'ud tiene un saldo por pagar de '.$saldo[0]["saldo"].' dolares';
-            return $this->redirect(['view', 'id' => $model->idR]);
+          
+            return $this->redirect(['saldo', 'id' => $model->idR]);
         } else {
             return $this->render('create', [
                 'model' => $model,

@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Persona */
+/* @var $model common\models\Persona */
 
 $this->title = $model->uid;
 $this->params['breadcrumbs'][] = ['label' => 'Personas', 'url' => ['index']];
@@ -23,8 +23,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-         <?= Html::a('ResetSaldo', ['resetsaldo', 'id' => $model->uid], ['class' => 'btn btn-primary']) ?>
-   
     </p>
 
     <?= DetailView::widget([

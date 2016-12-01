@@ -1,9 +1,9 @@
 <?php
 
-namespace backend\controllers;
+namespace frontend\controllers;
 
 use Yii;
-use app\models\Persona;
+use common\models\Persona;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -34,7 +34,7 @@ class PersonaController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {  if ((Yii::$app->user->can('admin'))) {
+    {
         $dataProvider = new ActiveDataProvider([
             'query' => Persona::find(),
         ]);
@@ -42,9 +42,6 @@ class PersonaController extends Controller
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
-     } else {
-            return $this->redirect(['error']);
-        }
     }
 
     /**
@@ -58,17 +55,7 @@ class PersonaController extends Controller
             'model' => $this->findModel($id),
         ]);
     }
-public function actionResetsaldo($id)
-    {
-        $model = $this->findModel($id);
-  
-        
-        $connection=Yii::$app->db;
-        $sql = "UPDATE persona SET saldo = '0' WHERE id_user = $model->id_user";
-        $command = $connection->createCommand($sql);
-        $command->execute();
-        return $this->redirect(['view', 'id' => $model->uid]);
-    }
+
     /**
      * Creates a new Persona model.
      * If creation is successful, the browser will be redirected to the 'view' page.
@@ -76,7 +63,6 @@ public function actionResetsaldo($id)
      */
     public function actionCreate()
     {
-        if ((Yii::$app->user->can('admin'))) {
         $model = new Persona();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -86,9 +72,6 @@ public function actionResetsaldo($id)
                 'model' => $model,
             ]);
         }
-        } else {
-            return $this->redirect(['error']);
-        }
     }
 
     /**
@@ -97,9 +80,9 @@ public function actionResetsaldo($id)
      * @param integer $id
      * @return mixed
      */
+    
     public function actionUpdate($id)
     {
-        if ((Yii::$app->user->can('admin'))) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -108,9 +91,6 @@ public function actionResetsaldo($id)
             return $this->render('update', [
                 'model' => $model,
             ]);
-        }
-        } else {
-            return $this->redirect(['error']);
         }
     }
 
@@ -122,14 +102,9 @@ public function actionResetsaldo($id)
      */
     public function actionDelete($id)
     {
-         if ((Yii::$app->user->can('admin'))) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
-        
-        } else {
-            return $this->redirect(['error']);
-        }
     }
 
     /**
