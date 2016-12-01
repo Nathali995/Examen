@@ -36,8 +36,10 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'Servicios Web', 'url' => ['/site/productoform'],'visible' => !Yii::$app->user->isGuest,],
+        ['label' => 'Servicios Web', 'url' => ['../../../cliente_web'],'visible' => !Yii::$app->user->isGuest,],
+   ['label' => 'Consumo Productos', 'url' => ['/registro/create'],'visible' => !Yii::$app->user->isGuest,]
     ];
+            
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/user/registration/register']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/user/security/login']];

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-11-2016 a las 18:58:30
+-- Tiempo de generación: 01-12-2016 a las 09:28:14
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.5.38
 
@@ -91,6 +91,25 @@ CREATE TABLE `auth_rule` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `departamento`
+--
+
+CREATE TABLE `departamento` (
+  `idD` int(11) NOT NULL,
+  `nombreD` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `departamento`
+--
+
+INSERT INTO `departamento` (`idD`, `nombreD`) VALUES
+(1, 'departamento_1'),
+(2, 'departamento_2');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `migration`
 --
 
@@ -121,6 +140,48 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `persona`
+--
+
+CREATE TABLE `persona` (
+  `uid` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `idD` int(11) NOT NULL,
+  `nombreP` varchar(50) NOT NULL,
+  `saldo` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`uid`, `id_user`, `idD`, `nombreP`, `saldo`) VALUES
+(1, 2, 1, 'persona_2', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto`
+--
+
+CREATE TABLE `producto` (
+  `idP` int(11) NOT NULL,
+  `nombreP` varchar(50) NOT NULL,
+  `precio` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idP`, `nombreP`, `precio`) VALUES
+(1, 'cafe', 0.5),
+(2, 'té', 1.1),
+(3, 'cola', 2.5);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `profile`
 --
 
@@ -141,7 +202,35 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`user_id`, `name`, `public_email`, `gravatar_email`, `gravatar_id`, `location`, `website`, `bio`, `timezone`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `registro`
+--
+
+CREATE TABLE `registro` (
+  `idR` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `idP` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `registro`
+--
+
+INSERT INTO `registro` (`idR`, `uid`, `idP`) VALUES
+(1, 1, 3),
+(2, 1, 3),
+(3, 1, NULL),
+(4, 1, NULL),
+(5, 1, NULL),
+(6, 1, 3),
+(7, 1, 3),
+(8, 1, 3),
+(9, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -179,7 +268,8 @@ CREATE TABLE `token` (
 --
 
 INSERT INTO `token` (`user_id`, `code`, `created_at`, `type`) VALUES
-(1, '69O8zbXYivcTopiQbTF6UlCWZZIpQDw6', 1480179041, 0);
+(1, '69O8zbXYivcTopiQbTF6UlCWZZIpQDw6', 1480179041, 0),
+(2, 'dOWKRP7cWY7HizZQc2XCX3dwbMqfKspI', 1480440527, 0);
 
 -- --------------------------------------------------------
 
@@ -207,7 +297,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`) VALUES
-(1, 'naty', 'yomi_995@hotmail.com', '$2y$12$UZ/jblpFAo0dyhqezvwmrukKMSafFQMLrC0zkyp.h5KQYNKt1RG/u', '1txyW6-T0DjpRkauGML7Wfs4Wy4By9-G', NULL, NULL, NULL, '::1', 1480179040, 1480179040, 0);
+(1, 'naty', 'yomi_995@hotmail.com', '$2y$12$UZ/jblpFAo0dyhqezvwmrukKMSafFQMLrC0zkyp.h5KQYNKt1RG/u', '1txyW6-T0DjpRkauGML7Wfs4Wy4By9-G', NULL, NULL, NULL, '::1', 1480179040, 1480179040, 0),
+(2, 'persona_1', 'persona_1@coree.com', '$2y$12$8ewQdLIke/JaOb55KToOY.ZS8NV0.oRg7CMucFsVomRhUJ1/IfKxm', '3A0gMZzXBztdymGcvvv3WCFVaRo-yXKj', NULL, NULL, NULL, '::1', 1480440527, 1480440527, 0);
 
 --
 -- Índices para tablas volcadas
@@ -241,16 +332,44 @@ ALTER TABLE `auth_rule`
   ADD PRIMARY KEY (`name`);
 
 --
+-- Indices de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD PRIMARY KEY (`idD`);
+
+--
 -- Indices de la tabla `migration`
 --
 ALTER TABLE `migration`
   ADD PRIMARY KEY (`version`);
 
 --
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`uid`),
+  ADD KEY `idD` (`idD`),
+  ADD KEY `id_user` (`id_user`);
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`idP`);
+
+--
 -- Indices de la tabla `profile`
 --
 ALTER TABLE `profile`
   ADD PRIMARY KEY (`user_id`);
+
+--
+-- Indices de la tabla `registro`
+--
+ALTER TABLE `registro`
+  ADD PRIMARY KEY (`idR`),
+  ADD KEY `uid` (`uid`),
+  ADD KEY `idP` (`idP`);
 
 --
 -- Indices de la tabla `social_account`
@@ -280,6 +399,26 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  MODIFY `idD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `idP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `registro`
+--
+ALTER TABLE `registro`
+  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
 -- AUTO_INCREMENT de la tabla `social_account`
 --
 ALTER TABLE `social_account`
@@ -288,7 +427,7 @@ ALTER TABLE `social_account`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Restricciones para tablas volcadas
 --
@@ -313,10 +452,24 @@ ALTER TABLE `auth_item_child`
   ADD CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`idD`) REFERENCES `departamento` (`idD`),
+  ADD CONSTRAINT `persona_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`);
+
+--
 -- Filtros para la tabla `profile`
 --
 ALTER TABLE `profile`
   ADD CONSTRAINT `fk_user_profile` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `registro`
+--
+ALTER TABLE `registro`
+  ADD CONSTRAINT `registro_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `persona` (`uid`),
+  ADD CONSTRAINT `registro_ibfk_2` FOREIGN KEY (`idP`) REFERENCES `producto` (`idP`);
 
 --
 -- Filtros para la tabla `social_account`
