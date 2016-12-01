@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-12-2016 a las 09:28:14
+-- Tiempo de generación: 01-12-2016 a las 20:01:47
 -- Versión del servidor: 10.1.16-MariaDB
 -- Versión de PHP: 5.5.38
 
@@ -38,7 +38,10 @@ CREATE TABLE `auth_assignment` (
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
 ('admin', '1', 1480181220),
-('autor', '1', 1480181220);
+('admin', '3', 1480617709),
+('autor', '1', 1480181220),
+('autor', '2', 1480617771),
+('autor', '3', 1480617709);
 
 -- --------------------------------------------------------
 
@@ -156,7 +159,9 @@ CREATE TABLE `persona` (
 --
 
 INSERT INTO `persona` (`uid`, `id_user`, `idD`, `nombreP`, `saldo`) VALUES
-(1, 2, 1, 'persona_2', 0);
+(1, 1, 1, 'naty', 2),
+(2, 2, 2, 'persona_1', 0),
+(3, 3, 1, 'Marc', 0);
 
 -- --------------------------------------------------------
 
@@ -203,7 +208,8 @@ CREATE TABLE `profile` (
 
 INSERT INTO `profile` (`user_id`, `name`, `public_email`, `gravatar_email`, `gravatar_id`, `location`, `website`, `bio`, `timezone`) VALUES
 (1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -224,13 +230,11 @@ CREATE TABLE `registro` (
 INSERT INTO `registro` (`idR`, `uid`, `idP`) VALUES
 (1, 1, 3),
 (2, 1, 3),
-(3, 1, NULL),
-(4, 1, NULL),
-(5, 1, NULL),
 (6, 1, 3),
 (7, 1, 3),
 (8, 1, 3),
-(9, 1, 3);
+(9, 1, 3),
+(10, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -298,7 +302,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`) VALUES
 (1, 'naty', 'yomi_995@hotmail.com', '$2y$12$UZ/jblpFAo0dyhqezvwmrukKMSafFQMLrC0zkyp.h5KQYNKt1RG/u', '1txyW6-T0DjpRkauGML7Wfs4Wy4By9-G', NULL, NULL, NULL, '::1', 1480179040, 1480179040, 0),
-(2, 'persona_1', 'persona_1@coree.com', '$2y$12$8ewQdLIke/JaOb55KToOY.ZS8NV0.oRg7CMucFsVomRhUJ1/IfKxm', '3A0gMZzXBztdymGcvvv3WCFVaRo-yXKj', NULL, NULL, NULL, '::1', 1480440527, 1480440527, 0);
+(2, 'persona_1', 'persona_1@coree.com', '$2y$12$8ewQdLIke/JaOb55KToOY.ZS8NV0.oRg7CMucFsVomRhUJ1/IfKxm', '3A0gMZzXBztdymGcvvv3WCFVaRo-yXKj', NULL, NULL, NULL, '::1', 1480440527, 1480440527, 0),
+(3, 'profesor', 'profesor@profesor.com', '$2y$12$LR1adfpzwufMvtmLGTdpiOdzaGTKdKptu/w0QsKJEA6/g3m4MMjqm', 'hJv3VxcDcKn2IQD2-0BlG9AkHrpf6twj', 1480617660, NULL, NULL, '::1', 1480617661, 1480617661, 0);
 
 --
 -- Índices para tablas volcadas
@@ -407,7 +412,7 @@ ALTER TABLE `departamento`
 -- AUTO_INCREMENT de la tabla `persona`
 --
 ALTER TABLE `persona`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `producto`
 --
@@ -417,7 +422,7 @@ ALTER TABLE `producto`
 -- AUTO_INCREMENT de la tabla `registro`
 --
 ALTER TABLE `registro`
-  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT de la tabla `social_account`
 --
@@ -427,7 +432,7 @@ ALTER TABLE `social_account`
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Restricciones para tablas volcadas
 --

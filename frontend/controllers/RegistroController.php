@@ -73,7 +73,17 @@ class RegistroController extends Controller
         $model = new Registro();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-          
+          //consulto el precio del nuevo producto
+    $preciosql="select precio from producto where idP=$model->idP";
+            $precio = Yii::$app->db->createCommand($preciosql)->execute();
+            //consulto el nuevo saldo
+             $saldosql="select saldo from persona where id_user=$model->uid";
+            $saldo1 = Yii::$app->db->createCommand($saldosql)->execute();
+            // actualizo el saldo
+        $connection=Yii::$app->db;
+        $sql = "UPDATE persona SET saldo = $saldo1+$precio WHERE id_user = $model->uid";
+        $command = $connection->createCommand($sql);
+        $command->execute();
             return $this->redirect(['saldo', 'id' => $model->idR]);
         } else {
             return $this->render('create', [
